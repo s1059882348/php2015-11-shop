@@ -15,6 +15,7 @@ class BaseController extends Controller
 {
 
     protected $model;
+    protected $usePostAllParams = false;  //收集所有数据设置
 
     public function _initialize()
     {
@@ -48,8 +49,8 @@ class BaseController extends Controller
             //2 使用模型中的create方法收集和验证数据，并自动完成
             if ($this->model->create() !== false) {
                 //3 将数据添加到数据库
-                if ($this->model->add() !== false) {
-                    $this->success('添加成功', U('index'));
+                if ($this->model->add($this->usePostAllParams?I('post.'):'') !== false) {
+                    $this->success('添加成功', cookie('__forward__'));
                     return;
                 }
             }
@@ -74,8 +75,8 @@ class BaseController extends Controller
         if (IS_POST) {
             // create方法收集数据，save更新数据
             if ($this->model->create() !== false) {
-                if ($this->model->save() !== false) {
-                    $this->success('更新成功', U('index'));
+                if ($this->model->save($this->usePostAllParams?I('post.'):'') !== false) {
+                    $this->success('更新成功', cookie('__forward__'));
                     return;
                 }
             }

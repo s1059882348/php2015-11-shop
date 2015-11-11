@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/ThinkPHP" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/Controller/SupplierController.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/admin.shop.com/Application/Admin/View/Supplier/index.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/Public/Admin" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/admin.shop.com/index.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/www.shop.com/index.php" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

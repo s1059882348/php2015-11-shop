@@ -6,14 +6,38 @@
     <form method="post" action="{:U()}" name="listForm">
         <table cellspacing="1" cellpadding="3" width="100%">
             <tr>
-                <td class="label">角色名称</td>
+                <td class="label">用户名</td>
                 <td>
-                    <input type="text" name="name" maxlength="60" value="{$name}"/>
+                    <input type="text" name="username" maxlength="60" value="{$username}" <notempty name="id">disabled="disabled"</notempty> />
+                    <span class="require-field">*</span>
+                </td>
+            </tr>
+            <empty name="id">
+            <tr>
+                <td class="label">密码</td>
+                <td>
+                    <input type="text" name="password" maxlength="60" value="{$password}"/>
+                    <span class="require-field">*</span>
+                </td>
+            </tr>
+            </empty>
+            <tr>
+                <td class="label">email</td>
+                <td>
+                    <input type="text" name="email" maxlength="60" value="{$email}"/>
                     <span class="require-field">*</span>
                 </td>
             </tr>
             <tr>
-                <td class="label">所属权限</td>
+                <td class="label">所属角色</td>
+                <td>
+                    <volist name="roles" id="role">
+                        <input type="checkbox" name="role_ids[]" class="role_id" value="{$role.id}">{$role.name}
+                    </volist>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">额外权限</td>
                 <td>
                     <div id="permission_tree"></div>
                     <ul id="treeDemo" class="ztree"></ul>
@@ -44,7 +68,7 @@
             <tr>
                 <td colspan="2" align="center"><br/>
                     <input type="hidden" name="id" value="{$id}" class="button"/>
-                    <input type="submit" class="button" value=" 确定 "/>
+                    <input type="submit" class="button " value=" 确定 "/>
                     <input type="reset" class="button" value=" 重置 "/>
                 </td>
             </tr>
@@ -57,6 +81,14 @@
     <script type="text/javascript" src="__ZTREE__/js/jquery.ztree.excheck-3.5.js"></script>
     <script type="text/javascript">
         $(function(){
+            //编辑时，选中用户的所属角色
+            <notempty name="id">
+                var $role_ids= {$role_ids};
+                $('.role_id').val($role_ids);
+            </notempty>
+
+
+
             //1 树的设置
             var setting = {
                 check: {
@@ -89,14 +121,14 @@
             //4  使用对象中的方法让其展开  分类树全部展开
             treeObject.expandAll(true);
 
-             //编辑时选中角色的所属权限
+            //编辑时选中角色的所属权限
             <notempty name="id">
-                 var permission_ids={$permission_ids};
-                 $(permission_ids).each(function(){
-                     var node=treeObject.getNodeByParam('id',this);
-                     //node:需要选中的节点, 第一个true: 表示选中,  第二个false:表示不关联, 第三true: 表示选中时激活事件
-                     treeObject.checkNode(node,true,false,true);
-                 });
+            var permission_ids={$permission_ids};
+            $(permission_ids).each(function(){
+                var node=treeObject.getNodeByParam('id',this);
+                //node:需要选中的节点, 第一个true: 表示选中,  第二个false:表示不关联, 第三true: 表示选中时激活事件
+                treeObject.checkNode(node,true,false,true);
+            });
             </notempty>
 
 
