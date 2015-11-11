@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>ECSHOP Menu</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="__CSS__/general.css" rel="stylesheet" type="text/css" />
+<link href="http://admin.shop.com/Public/Admin/css/general.css" rel="stylesheet" type="text/css" />
 
 <style type="text/css">
 body {
@@ -79,15 +79,15 @@ body {
   color:#EB8A3D;
 }
 .explode {
-  background:url(__IMG__/menu_minus.gif) no-repeat 0px 3px;
+  background:url(http://admin.shop.com/Public/Admin/images/menu_minus.gif) no-repeat 0px 3px;
   font-weight:bold;
 }
 .collapse {
-  background:url(__IMG__/menu_plus.gif) no-repeat 0px 3px;
+  background:url(http://admin.shop.com/Public/Admin/images/menu_plus.gif) no-repeat 0px 3px;
   font-weight:bold;
 }
 .menu-item {
-  background:url(__IMG__/menu_arrow.gif) no-repeat 0px 3px;
+  background:url(http://admin.shop.com/Public/Admin/images/menu_arrow.gif) no-repeat 0px 3px;
   font-weight:normal;
 }
 #help-title {
@@ -114,7 +114,7 @@ body {
     <p>
         <span style="float:right; padding:3px 5px;" >
             <a href="javascript:toggleCollapse();">
-                <img id="toggleImg" src="__IMG__/menu_minus.gif" width="9" height="9" border="0" alt="闭合" />
+                <img id="toggleImg" src="http://admin.shop.com/Public/Admin/images/menu_minus.gif" width="9" height="9" border="0" alt="闭合" />
             </a>
         </span>
         <span class="tab-front" id="menu-tab">菜单</span>
@@ -126,10 +126,10 @@ body {
             <li class="explode" key="02_cat_and_goods" name="menu">
             商品管理
                 <ul>
-                    <li class="menu-item"><a href="{:U('Goods/index')}" target="main-frame">商品列表</a></li>
-                    <li class="menu-item"><a href="{:U('Goods/add')}" target="main-frame">添加新商品</a></li>
-                    <li class="menu-item"><a href="{:U('GoodsCategory/index')}" target="main-frame">商品分类</a></li>
-                    <li class="menu-item"><a href="{:U('Brand/index')}" target="main-frame">商品品牌</a></li>
+                    <li class="menu-item"><a href="<?php echo U('Goods/index');?>" target="main-frame">商品列表</a></li>
+                    <li class="menu-item"><a href="<?php echo U('Goods/add');?>" target="main-frame">添加新商品</a></li>
+                    <li class="menu-item"><a href="<?php echo U('GoodsCategory/index');?>" target="main-frame">商品分类</a></li>
+                    <li class="menu-item"><a href="<?php echo U('Brand/index');?>" target="main-frame">商品品牌</a></li>
                     <li class="menu-item"><a href="goodsTrash.html" target="main-frame">商品回收站</a></li>
                 </ul>
             </li>
@@ -155,9 +155,9 @@ body {
             <li class="explode" key="08_members" name="menu">
                 系统管理
                 <ul>
-                    <li class="menu-item"><a href="{:U('Admin/index')}" target="main-frame">管理员管理</a></li>
-                    <li class="menu-item"><a href="{:U('Role/index')}" target="main-frame">角色管理</a></li>
-                    <li class="menu-item"><a href="{:U('Permission/index')}" target="main-frame">权限管理</a></li>
+                    <li class="menu-item"><a href="<?php echo U('Admin/index');?>" target="main-frame">管理员管理</a></li>
+                    <li class="menu-item"><a href="<?php echo U('Role/index');?>" target="main-frame">角色管理</a></li>
+                    <li class="menu-item"><a href="<?php echo U('Permission/index');?>" target="main-frame">权限管理</a></li>
                 </ul>
             </li>
         </ul>

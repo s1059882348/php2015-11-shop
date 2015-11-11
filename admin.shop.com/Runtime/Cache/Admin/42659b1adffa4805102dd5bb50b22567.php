@@ -1,9 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="__CSS__/general.css" rel="stylesheet" type="text/css" />
+<link href="http://admin.shop.com/Public/Admin/css/general.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 #header-div {
   background:#278296;
@@ -116,7 +116,7 @@
 <body>
 <div id="header-div">
     <div id="logo-div" style="bgcolor:#000000;">
-        <img src="__IMG__/ecshop_logo.gif" alt="ECSHOP - power for e-commerce" />
+        <img src="http://admin.shop.com/Public/Admin/images/ecshop_logo.gif" alt="ECSHOP - power for e-commerce" />
     </div>
     <div id="submenu-div">
         <ul>
@@ -126,7 +126,7 @@
         </ul>
         <div id="send_info">
             <a href="#" target="main-frame" class="fix-submenu">清除缓存</a>
-            <a href="{:U('Login/logout')}" target="_top" class="fix-submenu">退出</a>
+            <a href="<?php echo U('Login/logout');?>" target="_top" class="fix-submenu">退出</a>
         </div>
     </div>
 </div>

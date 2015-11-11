@@ -119,6 +119,24 @@ class AdminModel extends BaseModel
         return parent::save(array('id'=>$admin_id,'password'=>$password));
     }
 
+    //登录信息的验证
+    public function login(){
+//        var_dump($this->data);
+//        exit;
+        $username=$this->data['username'];
+        $password=$this->data['password'];
+        $user=$this->getByUsername("$username");
+        if($user){
+            if($user['password']==md5($password.$user['salt'])){
+                return $user;
+            }else{
+                $this->error='密码不正确';
+            }
+        }else{
+            $this->error='用户名不存在';
+        }
+    }
+
 
 
 }
