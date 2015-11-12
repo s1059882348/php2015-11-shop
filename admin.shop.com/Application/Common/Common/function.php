@@ -73,13 +73,35 @@ function isLogin(){
 //退出，将session中的用户信息清空
 function logout(){
     session('USERINFO',null);
+    session('PERMISSIONURL',null);
+    session('PERMISSIONID',null);
 }
 
 //登录时保存用户权限地址，无参数时表示获取用户权限地址从session中
+//传参数不传值，清空用户权限地址
 function savePermissionURL($urls=null){
     if($urls){
         session('PERMISSIONURL',$urls);
     }else{
         return session('PERMISSIONURL');
+    }
+}
+
+//登录时保存用户权限id，无参数时表示获取用户权限id从session中
+function savePermissionId($ids=null){
+    if($ids){
+        session('PERMISSIONID',$ids);
+    }else{
+        return session('PERMISSIONID');
+    }
+}
+
+//判断当前用户是否是超级管理员
+function isSuperUser(){
+    $userinfo=login();
+    $username=$userinfo['username'];
+    $super_name=C('SUPER_USER');
+    if($username==$super_name){
+        return ture;
     }
 }

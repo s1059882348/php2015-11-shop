@@ -6,6 +6,8 @@
 <link href="http://admin.shop.com/Public/Admin/css/main.css" rel="stylesheet" type="text/css" />
 <link href="http://admin.shop.com/Public/Admin/css/page.css" rel="stylesheet" type="text/css" />
 
+    <link type="text/css" href="http://admin.shop.com/Public/Admin/zTree/css/zTreeStyle/zTreeStyle.css"  rel="stylesheet"/>
+
 </head>
 <body>
 <h1>
@@ -17,40 +19,49 @@
 
 <div class="main-div">
     
-    <form method="post" action="<?php echo U();?>" name="listForm" >
+    <form method="post" action="<?php echo U();?>" name="listForm">
         <table cellspacing="1" cellpadding="3" width="100%">
-                        <tr>
+            <tr>
                 <td class="label">角色名称</td>
                 <td>
-                    <input type="text" name="name" maxlength="60" value="<?php echo ($name); ?>" />
+                    <input type="text" name="name" maxlength="60" value="<?php echo ($name); ?>"/>
                     <span class="require-field">*</span>
                 </td>
             </tr>
-                        <tr>
+            <tr>
+                <td class="label">所属权限</td>
+                <td>
+                    <div id="permission_tree"></div>
+                    <ul id="treeDemo" class="ztree"></ul>
+                </td>
+            </tr>
+            <tr>
                 <td class="label">简介</td>
                 <td>
-                    <textarea  name="intro" cols="60" rows="4"  ><?php echo ($intro); ?></textarea>
+                    <textarea name="intro" cols="60" rows="4"><?php echo ($intro); ?></textarea>
                     <span class="require-field">*</span>
                 </td>
             </tr>
-                        <tr>
+            <tr>
                 <td class="label">状态</td>
                 <td>
-                    <input type="radio" class="status" name="status" value="1" />是<input type="radio" class="status" name="status" value="0" />否                    <span class="require-field">*</span>
+                    <input type="radio" class="status" name="status" value="1"/>是<input type="radio" class="status"
+                                                                                        name="status" value="0"/>否 <span
+                        class="require-field">*</span>
                 </td>
             </tr>
-                        <tr>
+            <tr>
                 <td class="label">排序</td>
                 <td>
-                    <input type="text" name="sort" maxlength="60" value="<?php echo ((isset($sort) && ($sort !== ""))?($sort):20); ?>" />
+                    <input type="text" name="sort" maxlength="60" value="<?php echo ((isset($sort) && ($sort !== ""))?($sort):20); ?>"/>
                     <span class="require-field">*</span>
                 </td>
             </tr>
-                        <tr>
-                <td colspan="2" align="center"><br />
+            <tr>
+                <td colspan="2" align="center"><br/>
                     <input type="hidden" name="id" value="<?php echo ($id); ?>" class="button"/>
-                    <input type="submit" class="button ajax-post" value=" 确定 " />
-                    <input type="reset" class="button" value=" 重置 " />
+                    <input type="submit" class="button" value=" 确定 "/>
+                    <input type="reset" class="button" value=" 重置 "/>
                 </td>
             </tr>
         </table>
@@ -70,6 +81,56 @@
         $('.status').val([<?php echo ((isset($status) && ($status !== ""))?($status):1); ?>]);
     });
 </script>
+
+    <script type="text/javascript" src="http://admin.shop.com/Public/Admin/zTree/js/jquery.ztree.core-3.5.js"></script>
+    <script type="text/javascript" src="http://admin.shop.com/Public/Admin/zTree/js/jquery.ztree.excheck-3.5.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            //1 树的设置
+            var setting = {
+                check: {
+                    enable: true
+                },
+                data: {
+                    simpleData: {
+                        enable: true,
+                        pIdKey: "parent_id", //设置parent_id
+                    }
+                },
+                callback: {
+                    onCheck: function(event, treeId, treeNode){
+                        console.debug(treeNode);
+                        //获取到所有选中的节点
+                        var nodes =treeObject.getCheckedNodes(true);
+                        $('#permission_tree').empty();
+                        var html='';
+                        $(nodes).each(function(){
+                            html="<input type='hidden' name='permission_ids[]' value='"+this.id+"'>";
+                            $('#permission_tree').append(html);
+                        });
+                    }
+                }
+            };
+            //2 准备数据{ id:1, pId:0, name:"父节点1 - 展开", open:true},
+            var zNodes =<?php echo ($nodes); ?>;  //注意比对例子中的数据和自己传的数据  parent_id不同
+            //3  定义树的对象
+            var treeObject =$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            //4  使用对象中的方法让其展开  分类树全部展开
+            treeObject.expandAll(true);
+
+             //编辑时选中角色的所属权限
+            <?php if(!empty($id)): ?>var permission_ids=<?php echo ($permission_ids); ?>;
+                 $(permission_ids).each(function(){
+                     var node=treeObject.getNodeByParam('id',this);
+                     //node:需要选中的节点, 第一个true: 表示选中,  第二个false:表示不关联, 第三true: 表示选中时激活事件
+                     treeObject.checkNode(node,true,false,true);
+                 });<?php endif; ?>
+
+
+
+
+        });
+    </script>
 
 </body>
 </html>

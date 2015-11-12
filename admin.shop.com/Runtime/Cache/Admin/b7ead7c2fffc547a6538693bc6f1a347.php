@@ -123,43 +123,40 @@ body {
 <div id="main-div">
     <div id="menu-list">
         <ul id="menu-ul">
-            <li class="explode" key="02_cat_and_goods" name="menu">
-            商品管理
-                <ul>
-                    <li class="menu-item"><a href="<?php echo U('Goods/index');?>" target="main-frame">商品列表</a></li>
-                    <li class="menu-item"><a href="<?php echo U('Goods/add');?>" target="main-frame">添加新商品</a></li>
-                    <li class="menu-item"><a href="<?php echo U('GoodsCategory/index');?>" target="main-frame">商品分类</a></li>
-                    <li class="menu-item"><a href="<?php echo U('Brand/index');?>" target="main-frame">商品品牌</a></li>
-                    <li class="menu-item"><a href="goodsTrash.html" target="main-frame">商品回收站</a></li>
-                </ul>
-            </li>
 
-            <li class="explode" key="04_order" name="menu">
-            订单管理
+            <?php if(is_array($menus)): $i = 0; $__LIST__ = $menus;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i; if(($menu["level"]) == "1"): ?><li class="explode" key="04_order" name="menu">
+                <?php echo ($menu["name"]); ?>
                 <ul>
-                    <li class="menu-item"><a href="orderList.html" target="main-frame">订单列表</a></li>
-                    <li class="menu-item"><a href="orderQuery.html" target="main-frame">订单查询</a></li>
-                    <li class="menu-item"><a href="orderAdd.html" target="main-frame">添加订单</a></li>
-                    <li class="menu-item"><a href="delivery_list.html" target="main-frame">发货单列表</a></li>
-                    <li class="menu-item"><a href="back_list.html" target="main-frame">退货单列表</a></li>
+                    <?php if(is_array($menus)): $i = 0; $__LIST__ = $menus;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu2): $mod = ($i % 2 );++$i; if(($menu2["parent_id"]) == $menu["id"]): ?><li class="menu-item"><a href="<?php echo U($menu2['url']);?>" target="main-frame"><?php echo ($menu2["name"]); ?></a></li><?php endif; endforeach; endif; else: echo "" ;endif; ?>
                 </ul>
-            </li>
-            <li class="explode" key="08_members" name="menu">
-            会员管理
-                <ul>
-                    <li class="menu-item"><a href="userList.html" target="main-frame">会员列表</a></li>
-                    <li class="menu-item"><a href="userAdd.html" target="main-frame">添加会员</a></li>
-                    <li class="menu-item"><a href="userMessage.html" target="main-frame">会员留言</a></li>
-                </ul>
-            </li>
-            <li class="explode" key="08_members" name="menu">
-                系统管理
-                <ul>
-                    <li class="menu-item"><a href="<?php echo U('Admin/index');?>" target="main-frame">管理员管理</a></li>
-                    <li class="menu-item"><a href="<?php echo U('Role/index');?>" target="main-frame">角色管理</a></li>
-                    <li class="menu-item"><a href="<?php echo U('Permission/index');?>" target="main-frame">权限管理</a></li>
-                </ul>
-            </li>
+            </li><?php endif; endforeach; endif; else: echo "" ;endif; ?>
+
+            <!--<li class="explode" key="04_order" name="menu">-->
+            <!--订单管理-->
+                <!--<ul>-->
+                    <!--<li class="menu-item"><a href="orderList.html" target="main-frame">订单列表</a></li>-->
+                    <!--<li class="menu-item"><a href="orderQuery.html" target="main-frame">订单查询</a></li>-->
+                    <!--<li class="menu-item"><a href="orderAdd.html" target="main-frame">添加订单</a></li>-->
+                    <!--<li class="menu-item"><a href="delivery_list.html" target="main-frame">发货单列表</a></li>-->
+                    <!--<li class="menu-item"><a href="back_list.html" target="main-frame">退货单列表</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="explode" key="08_members" name="menu">-->
+            <!--会员管理-->
+                <!--<ul>-->
+                    <!--<li class="menu-item"><a href="userList.html" target="main-frame">会员列表</a></li>-->
+                    <!--<li class="menu-item"><a href="userAdd.html" target="main-frame">添加会员</a></li>-->
+                    <!--<li class="menu-item"><a href="userMessage.html" target="main-frame">会员留言</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="explode" key="08_members" name="menu">-->
+            <!--系统管理-->
+                <!--<ul>-->
+                    <!--<li class="menu-item"><a href="<?php echo U('Admin/index');?>" target="main-frame">管理员管理</a></li>-->
+                    <!--<li class="menu-item"><a href="<?php echo U('Role/index');?>" target="main-frame">角色管理</a></li>-->
+                    <!--<li class="menu-item"><a href="<?php echo U('Permission/index');?>" target="main-frame">权限管理</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
         </ul>
     </div>
     <div id="help-div" style="display:none">
@@ -167,9 +164,9 @@ body {
         <div id="help-content"></div>
     </div>
 </div>
-<script type="text/javascript" src="_JS_/global.js"></script>
-<script type="text/javascript" src="_JS_/utils.js"></script>
-<script type="text/javascript" src="_JS_/transport.js"></script>
+<script type="text/javascript" src="http://admin.shop.com/Public/Admin/js/global.js"></script>
+<script type="text/javascript" src="http://admin.shop.com/Public/Admin/js/utils.js"></script>
+<script type="text/javascript" src="http://admin.shop.com/Public/Admin/js/transport.js"></script>
 <script language="JavaScript">
     var collapse_all = "闭合";
     var expand_all = "展开";
@@ -190,7 +187,7 @@ body {
             }
         }
         collapse = !collapse;
-        document.getElementById('toggleImg').src = collapse ? '_IMG_/menu_minus.gif' : '_IMG_/menu_plus.gif';
+        document.getElementById('toggleImg').src = collapse ? 'http://admin.shop.com/Public/Admin/images/menu_minus.gif' : 'http://admin.shop.com/Public/Admin/images/menu_plus.gif';
         document.getElementById('toggleImg').alt = collapse ? collapse_all : expand_all;
     }
 
@@ -310,7 +307,7 @@ body {
                         }
                     }
                 }
-                document.getElementById('toggleImg').src = collapse ? '_IMG_/menu_minus.gif' : '_IMG_/menu_plus.gif';
+                document.getElementById('toggleImg').src = collapse ? 'http://admin.shop.com/Public/Admin/images/menu_minus.gif' : 'http://admin.shop.com/Public/Admin/images/menu_plus.gif';
                 document.getElementById('toggleImg').alt = collapse ? collapse_all : expand_all;
             }
         }

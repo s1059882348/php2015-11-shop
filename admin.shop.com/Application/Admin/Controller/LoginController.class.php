@@ -45,9 +45,17 @@ class LoginController extends Controller
             $result=$loginService->login($username,$password);
             if(is_array($result)) {
                 login($result);
-                //获取用户的权限地址，并保存
-                $urls = $loginService->getPermissionURL($result['id']);
-                savePermissionURL($urls);
+                //获取用户的权限地址和权限id，并保存
+                $permission = $loginService->getPermission($result['id']);
+                savePermissionId(array_column($permission,'id'));
+                savePermissionURL(array_column($permission,'url'));
+                //完成自动登录信息的保存
+                $remember = I('post.remember');
+                if(!empty($remember)){
+                    //保存用户信息
+                    $loginService->saveLogin($result['id']);
+                }
+
                 $this->success('登录成功', U('Index/index'));
             }else{
                 $this->error('登录失败'.$result);
@@ -62,6 +70,8 @@ class LoginController extends Controller
         logout();
         $this->success('退出成功！',U('checkLogin'));
     }
+
+
 
 
 }
