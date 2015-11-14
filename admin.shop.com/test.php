@@ -5,9 +5,26 @@ $str2='fdsfdf';
 
 //$comment=strstr($str2,'@',true);
 
-preg_match('/(\D*)@(\w*)\|?(.*)/',$str1,$match);
-
-
-var_dump($match);
+//preg_match('/(\D*)@(\w*)\|?(.*)/',$str1,$match);
+//
+//
+//var_dump($match);
 
 //$comment = strpos($field['comment'],'@')===false?$field['comment']:strstr($field['comment'],'@',true);
+
+
+$f=12;
+$s=13;
+
+function replace($f,$s){
+    $f=$s;
+}
+replace($f,$s);
+echo $f,     $s;
+
+
+
+
+
+
+

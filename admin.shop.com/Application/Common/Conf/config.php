@@ -43,7 +43,7 @@ return array(
     //cookie的配置
     'COOKIE_DOMAIN'          => '.shop.com', // Cookie有效域名   可以被所有的子域名网站所共享
 
-
+    'URL_MODEL'              => 1,
 
 
 

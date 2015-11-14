@@ -43,6 +43,7 @@ class LoginController extends Controller
             //实例化service对象
             $loginService=D('Login','Service');
             $result=$loginService->login($username,$password);
+
             if(is_array($result)) {
                 login($result);
                 //获取用户的权限地址和权限id，并保存
@@ -50,6 +51,7 @@ class LoginController extends Controller
                 savePermissionId(array_column($permission,'id'));
                 savePermissionURL(array_column($permission,'url'));
                 //完成自动登录信息的保存
+//                var_dump(session('USERINFO'));exit;
                 $remember = I('post.remember');
                 if(!empty($remember)){
                     //保存用户信息

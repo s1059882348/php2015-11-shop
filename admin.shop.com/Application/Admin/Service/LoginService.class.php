@@ -41,7 +41,7 @@ class LoginService
      */
     public function getPermission($admin_id){
         $sql = "select  distinct  id,url from permission  where id in
-        (select  distinct rp.permission_id from  admin_role as ar  join role_permission as rp on ar.role_id = rp.role_id  where ar.admin_id = 3)
+        (select  distinct rp.permission_id from  admin_role as ar  join role_permission as rp on ar.role_id = rp.role_id  where ar.admin_id = $admin_id)
         or id in(select  ap.permission_id from admin_permission as ap where ap.admin_id = $admin_id);";
 
         $rows =   M()->query($sql);
