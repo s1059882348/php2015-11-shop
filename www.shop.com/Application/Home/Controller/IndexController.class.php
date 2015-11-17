@@ -27,6 +27,8 @@ class IndexController extends Controller
          $goods_4s = $goodsModel->getGoodsbyGoodsStatus(4);
          $goods_8s = $goodsModel->getGoodsbyGoodsStatus(8);
          $goods_16s = $goodsModel->getGoodsbyGoodsStatus(16);
+        $articleModel=D('Article');
+        $news=$articleModel->getNews();
         $this->assign(array(
             'isHiddenMenu'=>false,
             'meta_title'=>'京西商城首页',
@@ -35,6 +37,7 @@ class IndexController extends Controller
             'goods_4s'=>$goods_4s,
             'goods_8s'=>$goods_8s,
             'goods_16s'=>$goods_16s,
+            'news'=>$news,
         ));
         $this->assign('isHiddenMenu',false);
         $this->display('index');
@@ -48,12 +51,17 @@ class IndexController extends Controller
         $this->display('lst');
     }
 
-    public function goods(){
+    public function goods($id){
+        $goodsModel=D('Goods');
+        $goods=$goodsModel->get($id);
+        $this->assign($goods);
         $this->assign(array(
             'isHiddenMenu'=>true,
-            'meta_title'=>'京西商城，xxx商品'
+            'meta_title'=>"京西商城---".$goods['name']
         ));
         $this->display('goods');
     }
+
+
 
 }

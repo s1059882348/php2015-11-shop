@@ -21,7 +21,11 @@
         </div>
         <div class="topnav_right fr">
             <ul>
-                <li>您好，欢迎来到京西！[<a href="login.html">登录</a>] [<a href="register.html">免费注册</a>] </li>
+                <li>您好<?php echo ($_SESSION['USERINFO']['name']); ?>，欢迎来到京西！
+                    <?php if(empty($_SESSION['USERINFO'])): ?>[<a href="<?php echo U('Member/login');?>">登录</a>] [<a href="<?php echo U('Member/regist');?>">免费注册</a>]
+                    <?php else: ?>
+                    [<a href="<?php echo U('Member/logout');?>">注销</a>]<?php endif; ?>
+                </li>
                 <li class="line">|</li>
                 <li>我的订单</li>
                 <li class="line">|</li>
@@ -211,14 +215,8 @@
 			<div class="news mt10">
 				<h2><a href="">更多快报&nbsp;></a><strong>网站快报</strong></h2>
 				<ul>
-					<li class="odd"><a href="">电脑数码双11爆品抢不停</a></li>
-					<li><a href="">买茶叶送武夷山旅游大奖</a></li>
-					<li class="odd"><a href="">爆款手机最高直降1000</a></li>
-					<li><a href="">新鲜褚橙全面包邮开售！</a></li>
-					<li class="odd"><a href="">家具家装全场低至3折</a></li>
-					<li><a href="">买韩束，志玲邀您看电影</a></li>
-					<li class="odd"><a href="">美的先行惠双11快抢悦</a></li>
-					<li><a href="">享生活 疯狂周期购！</a></li>
+					<?php if(is_array($news)): $i = 0; $__LIST__ = $news;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$new): $mod = ($i % 2 );++$i; if(($i%2) == "1"): endif; ?>
+					<li <?php if(($i%2) == "1"): ?>class="odd"><?php endif; ?><a href="javascript:;"><?php echo ($new["name"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
 				</ul>
 
 			</div>
@@ -320,41 +318,13 @@
 				<!-- 疯狂抢购 start-->
 				<div class="crazy">
 					<ul>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/crazy1.jpg" alt="" /></a></dt>
-								<dd><a href="">惠普G4-1332TX 14英寸</a></dd>
-								<dd><span>售价：</span><strong> ￥2999.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/crazy2.jpg" alt="" /></a></dt>
-								<dd><a href="">直降100元！TCL118升冰箱</a></dd>
-								<dd><span>售价：</span><strong> ￥800.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/crazy3.jpg" alt="" /></a></dt>
-								<dd><a href="">康佳液晶37寸电视机</a></dd>
-								<dd><span>售价：</span><strong> ￥2799.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/crazy4.jpg" alt="" /></a></dt>
-								<dd><a href="">梨子平板电脑7.9寸</a></dd>
-								<dd><span>售价：</span><strong> ￥1999.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/crazy5.jpg" alt="" /></a></dt>
-								<dd><a href="">好声音耳机</a></dd>
-								<dd><span>售价：</span><strong> ￥199.00</strong></dd>
-							</dl>
-						</li>
+						<?php if(is_array($goods_1s)): $i = 0; $__LIST__ = $goods_1s;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li>
+								<dl>
+									<dt><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><img src="http://admin.shop.com/Uploads/<?php echo ($info["logo"]); ?>" alt="" /></a></dt>
+									<dd><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><?php echo ($info["name"]); ?></a></dd>
+									<dd><span>售价：</span><strong> ￥<?php echo ($info["shop_price"]); ?></strong></dd>
+								</dl>
+							</li><?php endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 				</div>
 				<!-- 疯狂抢购 end-->
@@ -362,27 +332,13 @@
 				<!-- 热卖商品 start -->
 				<div class="hot none">
 					<ul>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/hot1.jpg" alt="" /></a></dt>
-								<dd><a href="">索尼双核五英寸四核手机！</a></dd>
-								<dd><span>售价：</span><strong> ￥1386.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/hot2.jpg" alt="" /></a></dt>
-								<dd><a href="">华为通话平板仅需969元！</a></dd>
-								<dd><span>售价：</span><strong> ￥969.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/hot3.jpg" alt="" /></a></dt>
-								<dd><a href="">卡姿兰明星单品7件彩妆套装</a></dd>
-								<dd><span>售价：</span><strong> ￥169.00</strong></dd>
-							</dl>
-						</li>
+						<?php if(is_array($goods_2s)): $i = 0; $__LIST__ = $goods_2s;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li>
+								<dl>
+									<dt><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><img src="http://admin.shop.com/Uploads/<?php echo ($info["logo"]); ?>" alt="" /></a></dt>
+									<dd><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><?php echo ($info["name"]); ?></a></dd>
+									<dd><span>售价：</span><strong> ￥<?php echo ($info["shop_price"]); ?></strong></dd>
+								</dl>
+							</li><?php endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 				</div>
 				<!-- 热卖商品 end -->
@@ -390,27 +346,13 @@
 				<!-- 推荐商品 atart -->
 				<div class="recommend none">
 					<ul>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/recommend1.jpg" alt="" /></a></dt>
-								<dd><a href="">黄飞红麻辣花生整箱特惠装</a></dd>
-								<dd><span>售价：</span><strong> ￥139.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/recommend2.jpg" alt="" /></a></dt>
-								<dd><a href="">戴尔IN1940MW 19英寸LE</a></dd>
-								<dd><span>售价：</span><strong> ￥679.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/recommend3.jpg" alt="" /></a></dt>
-								<dd><a href="">罗辑思维音频车载CD</a></dd>
-								<dd><span>售价：</span><strong> ￥24.80</strong></dd>
-							</dl>
-						</li>
+						<?php if(is_array($goods_4s)): $i = 0; $__LIST__ = $goods_4s;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li>
+								<dl>
+									<dt><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><img src="http://admin.shop.com/Uploads/<?php echo ($info["logo"]); ?>" alt="" /></a></dt>
+									<dd><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><?php echo ($info["name"]); ?></a></dd>
+									<dd><span>售价：</span><strong> ￥<?php echo ($info["shop_price"]); ?></strong></dd>
+								</dl>
+							</li><?php endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 				</div>
 				<!-- 推荐商品 end -->
@@ -418,27 +360,13 @@
 				<!-- 新品上架 start-->
 				<div class="new none">
 					<ul>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/new1.jpg" alt="" /></a></dt>
-								<dd><a href="">E路航T70超薄GPS 7寸大屏！</a></dd>
-								<dd><span>售价：</span><strong> ￥369.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/new2.jpg" alt="" /></a></dt>
-								<dd><a href="">乐和居 爆品 特价疯狂抢</a></dd>
-								<dd><span>售价：</span><strong> ￥2799.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/new3.jpg" alt="" /></a></dt>
-								<dd><a href="">北欧 套装 抄底再续最后几小时</a></dd>
-								<dd><span>售价：</span><strong> ￥999.00</strong></dd>
-							</dl>
-						</li>
+						<?php if(is_array($goods_2s)): $i = 0; $__LIST__ = $goods_2s;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li>
+								<dl>
+									<dt><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><img src="http://admin.shop.com/Uploads/<?php echo ($info["logo"]); ?>" alt="" /></a></dt>
+									<dd><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><?php echo ($info["name"]); ?></a></dd>
+									<dd><span>售价：</span><strong> ￥<?php echo ($info["shop_price"]); ?></strong></dd>
+								</dl>
+							</li><?php endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 				</div>
 				<!-- 新品上架 end-->
@@ -446,27 +374,13 @@
 				<!-- 猜您喜欢 start -->
 				<div class="guess none">
 					<ul>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/guess1.jpg" alt="" /></a></dt>
-								<dd><a href="">Thinkpad USB光电鼠标</a></dd>
-								<dd><span>售价：</span><strong> ￥39.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/guess2.jpg" alt="" /></a></dt>
-								<dd><a href="">宜客莱（ECOLA）电脑散热器</a></dd>
-								<dd><span>售价：</span><strong> ￥89.00</strong></dd>
-							</dl>
-						</li>
-						<li>
-							<dl>
-								<dt><a href=""><img src="http://www.shop.com/Public/Home/images/guess3.jpg" alt="" /></a></dt>
-								<dd><a href="">巴黎欧莱雅男士洁面膏 100ml</a></dd>
-								<dd><span>售价：</span><strong> ￥30.00</strong></dd>
-							</dl>
-						</li>
+						<?php if(is_array($goods_8s)): $i = 0; $__LIST__ = $goods_8s;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$info): $mod = ($i % 2 );++$i;?><li>
+								<dl>
+									<dt><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><img src="http://admin.shop.com/Uploads/<?php echo ($info["logo"]); ?>" alt="" /></a></dt>
+									<dd><a href="<?php echo U('goods',array('id'=>$info['id']));?>"><?php echo ($info["name"]); ?></a></dd>
+									<dd><span>售价：</span><strong> ￥<?php echo ($info["shop_price"]); ?></strong></dd>
+								</dl>
+							</li><?php endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 				</div>
 				<!-- 猜您喜欢 end -->

@@ -23,4 +23,10 @@ class ArticleModel extends Model
         return $articles;
     }
 
+    //获取网站快报的相关文章
+    public function getNews($limit=8){
+        return $this->where(array('article_category_id'=>6,'status'=>1))->order('inputtime  desc')->limit($limit)->select();
+
+    }
+
 }

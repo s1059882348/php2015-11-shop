@@ -106,9 +106,11 @@
             <tr>
                 <td class="label">商品状态</td>
                 <td>
-                    <input type="checkbox" class="goods_status" name="goods_status[]" value="1">精品
-                    <input type="checkbox" class="goods_status" name="goods_status[]" value="2">新品
-                    <input type="checkbox" class="goods_status" name="goods_status[]" value="4">热销
+                    <input type="checkbox" class="goods_status" name="goods_status[]" value="1">疯狂抢购
+                    <input type="checkbox" class="goods_status" name="goods_status[]" value="2">热卖商品
+                    <input type="checkbox" class="goods_status" name="goods_status[]" value="4">推荐商品
+                    <input type="checkbox" class="goods_status" name="goods_status[]" value="8">新品上架
+                    <input type="checkbox" class="goods_status" name="goods_status[]" value="16">猜您喜欢
                     <span   class="require-field">*</span>
                 </td>
             </tr>
@@ -340,7 +342,7 @@
                     swf           : 'http://admin.shop.com/Public/Admin/uploadify/uploadify.swf',  //指定swf的地址
                     uploader      : '<?php echo U("Uploader/index");?>',   //在服务器上处理上传的代码
                     'buttonText' : '选择图片',   //上传按钮上面的文字
-                    'fileSizeLimit' : '100KB',  //限制大小
+                    'fileSizeLimit' : '1000KB',  //限制大小
 //            'fileObjName' : 'the_files',  //上传文件时, name的值 ,  默认值为  Filedata     $_FIELS['Filedata']
                     'formData'      : {'dir' : 'brand'},   //通过post方式传递的额外参数
                     'multi'    : true,   //是否支持多文件上传
@@ -371,6 +373,12 @@
             if((goods_status & 4) > 0){
                 goods_status_values.push(4);
             }
+            if((goods_status & 8) > 0){
+                goods_status_values.push(4);
+            }
+            if((goods_status & 16) > 0){
+                goods_status_values.push(4);
+            }
             $('.goods_status').val(goods_status_values);<?php endif; ?>
             /////////////////////////////编辑时回显商品状态   结束////////////////////////////////////////////
 
@@ -385,7 +393,7 @@
                     swf           : 'http://admin.shop.com/Public/Admin/uploadify/uploadify.swf',  //指定swf的地址
                     uploader      : '<?php echo U("Uploader/index");?>',   //在服务器上处理上传的代码
                     'buttonText' : '选择图片',   //上传按钮上面的文字
-                    'fileSizeLimit' : '100KB',  //限制大小
+                    'fileSizeLimit' : '1000KB',  //限制大小
 //            'fileObjName' : 'the_files',  //上传文件时, name的值 ,  默认值为  Filedata     $_FIELS['Filedata']
                     'formData'      : {'dir' : 'goods'},   //通过post方式传递的额外参数
                     'multi'    : true,   //是否支持多文件上传
