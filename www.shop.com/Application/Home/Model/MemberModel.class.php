@@ -99,6 +99,10 @@ class MemberModel extends Model
                 return false;
             }
             if($row['password']==md5($password.$row['salt'])){
+                //登录后将session中的购物商品同步到数据库中
+                defined('UID') or define('UID',$row['id']);
+                $shoppingCarModel=D('ShoppingCar');
+                $shoppingCarModel->cookie2DB();
                 return $row;
             }else{
                 $this->error='密码错误';

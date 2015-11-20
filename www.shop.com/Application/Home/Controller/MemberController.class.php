@@ -47,7 +47,14 @@ class MemberController extends Controller
                 $result=$memberModel->login();
                 if(is_array($result)){
                     login($result);
-                    $this->success('登录成功',U('Index/index'));
+                    //当在购物流程中跳转到登录界面，则登录成功后跳转到流程
+                    $login_return_url=cookie('__LOGIN_RETURN_URL__');
+                    if(empty($login_return_url)){
+                        $login_return_url=U('Index/index');
+                    }else{
+                        cookie('__LOGIN_RETURN_URL__',null);
+                    }
+                    $this->success('登录成功',$login_return_url);
                 }else{
                     $this->error('登录失败'.ShowErrors($memberModel));
                 }

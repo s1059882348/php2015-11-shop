@@ -9,19 +9,25 @@
 namespace Home\Model;
 
 
-class ShoppingCarModel
+use Think\Model;
+
+class ShoppingCarModel extends Model
 {
 
     //没有登录从cookie中获取，登录从DB中获取
     public function getList(){
-        if(isLogin()){
+        if(!isLogin()){
             $shoppingCar=cookie('shopping_car');
             $shoppingCar=unserialize($shoppingCar);
-            $this->bulidShoppingCar($shoppingCar);
-            return $shoppingCar;
+
         }else{
             //从数据库中获取
+            $shoppingCar=$this->where(array('member_id'=>UID))->select();
+
+
         }
+        $this->bulidShoppingCar($shoppingCar);
+        return $shoppingCar;
     }
 
     private function bulidShoppingCar(&$shoppingCar){
@@ -36,11 +42,16 @@ class ShoppingCarModel
      * @param $requestData
      */
     public function add($requestData){
-        if(isLogin()){
+
+        if(!isLogin()){
             $this->addCookie($requestData);
+
+
         }else{
             $this->addDB($requestData);
+
         }
+
     }
 
     public function addCookie($item){
@@ -51,6 +62,7 @@ class ShoppingCarModel
         }else{
             $shoppingCar=unserialize($shoppingCar);
         }
+
         //改变购物车的cookie
 //        $goods_ids=array_column($shoppingCar,'goods_id');
 //        if(in_array($item['goods_id'],$goods_ids)){
@@ -76,12 +88,33 @@ class ShoppingCarModel
             $shoppingCar[]=$item;
         }
 
-        var_dump($shoppingCar);exit;
         cookie('shopping_car',serialize($shoppingCar));
+
     }
 
     public function addDB($item){
+        $item['member_id']=UID;
+        $count=$this->where(array('member_id'=>$item['member_id'],'goods_id'=>$item['goods_id']))->count();
+        if($count>0){
+            $this->where(array('member_id'=>$item['member_id'],'goods_id'=>$item['goods_id']));
+            return parent::setInc('num',$item['num']);
+        }else{
+            $this->where(array('member_id'=>$item['member_id']));
+            return parent::add($item);
+        }
+    }
 
+    public function cookie2DB(){
+        $shoppingCar=cookie('shopping_car');
+        if(empty($shoppingCar)){
+            return;
+        }else{
+            $shoppingCar=unserialize($shoppingCar);
+        }
+        foreach($shoppingCar as $item){
+            $this->addDB($item);
+        }
+        cookie('shopping_car',null);
     }
 
 

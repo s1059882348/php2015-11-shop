@@ -24,9 +24,9 @@
         <div class="topnav_right fr">
             <ul>
                 <li>您好<?php echo ($_SESSION['USERINFO']['name']); ?>，欢迎来到京西！
-                    <?php if(empty($_SESSION['USERINFO'])): ?>[<a href="login.html">登录</a>] [<a href="register.html">免费注册</a>]
+                    <?php if(empty($_SESSION['USERINFO'])): ?>[<a href="<?php echo U('Member/login');?>">登录</a>] [<a href="<?php echo U('Member/regist');?>">免费注册</a>]
                     <?php else: ?>
-                    [<a href="<?php echo U('logout');?>">注销</a>]<?php endif; ?>
+                    [<a href="<?php echo U('Member/logout');?>">注销</a>]<?php endif; ?>
                 </li>
                 <li class="line">|</li>
                 <li>我的订单</li>
@@ -350,7 +350,7 @@
 								<dl>
 									<dt>颜色：</dt>
 									<dd>
-										<a class="selected" href="javascript:;">黑色 <input type="radio" name="color" value="黑色" checked="checked" /></a>
+										<a class="selected" href="javascript:;">黑色 <input type="radio" name="" value="黑色" checked="checked" /></a>
 										<a href="javascript:;">白色 <input type="radio" name="color" value="白色" /></a>
 										<a href="javascript:;">蓝色 <input type="radio" name="color" value="蓝色" /></a>
 										<input type="hidden" name="" value="" />
@@ -362,10 +362,10 @@
 								<dl>
 									<dt>版本：</dt>
 									<dd>
-										<a href="javascript:;">i3 4G内存版 <input type="radio" name="ver" value="" /></a>
-										<a href="javascript:;">i5 4G内存版 <input type="radio" name="ver" value=""  /></a>
+										<a href="javascript:;">i3 4G内存版 <input type="radio" name="" value="" /></a>
+										<a href="javascript:;">i5 4G内存版 <input type="radio" name="" value=""  /></a>
 										<a class="selected" href="javascript:;">i5 8G内存版<input type="radio" name="ver" value="" checked="checked" /></a>
-										<a href="javascript:;">SSD超极本 <input type="radio" name="ver" value="" /></a>
+										<a href="javascript:;">SSD超极本 <input type="radio" name="" value="" /></a>
 										<input type="hidden" name="" value="" />
 									</dd>
 								</dl>

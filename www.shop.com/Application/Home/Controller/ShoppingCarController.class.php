@@ -25,7 +25,8 @@ class ShoppingCarController extends Controller
         $params=I('post.');
         $shoppingCarModel=D('ShoppingCar');
         $result=$shoppingCarModel->add($params);
-        if($result){
+//        var_dump($result);exit;
+        if($result!==false){
             $this->success('添加成功',U('index'));
         }else{
             $this->error('添加失败');

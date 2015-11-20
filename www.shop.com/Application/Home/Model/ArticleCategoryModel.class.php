@@ -17,7 +17,7 @@ class ArticleCategoryModel extends Model
     public function getList(){
         $articleCategorys=S('ArticleCategorys');
         if(!$articleCategorys){
-            $articleCategorys=$this->field('id,name')->where(array('status'=>1,'is_help'=>1))->order('lft')->select();
+            $articleCategorys=$this->field('id,name')->where(array('status'=>1,'is_help'=>1))->select();
             S('ArticleCategorys',$articleCategorys);
         }
         return $articleCategorys;
